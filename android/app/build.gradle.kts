@@ -39,6 +39,10 @@ android {
     }
 }
 
+dependencies {
+    implementation("androidx.lifecycle:lifecycle-common:2.8.3")
+}
+
 flutter {
     source = "../.."
 }

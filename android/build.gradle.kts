@@ -1,5 +1,8 @@
 allprojects {
     repositories {
+        maven {
+            url = uri(rootProject.projectDir.parentFile.resolve(".gradle/flutter-engine-maven"))
+        }
         google()
         mavenCentral()
     }

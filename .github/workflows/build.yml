@@ -1,0 +1,75 @@
+name: Flutter Build Debug
+
+on:
+  push:
+    branches: [ "main", "master" ] # 也可以按需修改为匹配所有分支: '**'
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-android:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # 对应项目使用的 JDK 17
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Debug APK
+        run: flutter build apk --debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 7
+
+  build-ios:
+    name: Build Debug iOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Debug iOS App
+        # CI 环境如果没有配置 Apple 证书，直接构建 ipa 会失败
+        # 这里使用 --no-codesign 跳过签名，构建出 Runner.app
+        run: flutter build ios --debug --no-codesign
+
+      - name: Compress iOS App (Simulate IPA)
+        # 将 unsigned app 压缩成供模拟器或越狱设备测试的包
+        run: |
+          mkdir -p Payload
+          mv build/ios/iphoneos/Runner.app Payload/
+          zip -r -q app-debug-unsigned.ipa Payload
+
+      - name: Upload Unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-unsigned-ipa
+          path: app-debug-unsigned.ipa
+          retention-days: 7

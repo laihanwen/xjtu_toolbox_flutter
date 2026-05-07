@@ -19,3 +19,4 @@ ios/.symlinks/
 .idea/
 .vscode/
 *.iml
+.gradle/
