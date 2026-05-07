@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_environment.dart';
 import '../../core/migration_area.dart';
+import '../../ui/app_badge.dart';
+import '../../ui/app_page.dart';
+import '../../ui/app_surface.dart';
 import 'migration_backlog.dart';
 
 class MigrationDashboard extends StatelessWidget {
@@ -14,10 +17,7 @@ class MigrationDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return ListView(
-      padding: const EdgeInsets.all(16),
+    return AppPage(
       children: [
         Text(
           'Migration Workspace',
@@ -29,18 +29,12 @@ class MigrationDashboard extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 16),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.all(12),
-            child: Text(
-              'Start with platform boundaries before porting screens. '
-              'Auth, cookies, WebVPN, storage and native bridges are the '
-              'critical path for this app.',
-            ),
+        const AppSurface(
+          padding: EdgeInsets.all(12),
+          child: Text(
+            'Start with platform boundaries before porting screens. '
+            'Auth, cookies, WebVPN, storage and native bridges are the '
+            'critical path for this app.',
           ),
         ),
         const SizedBox(height: 16),
@@ -60,26 +54,30 @@ class _BacklogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = switch (item.status) {
-      MigrationStatus.done => Colors.green,
-      MigrationStatus.inProgress => Colors.blue,
-      MigrationStatus.blocked => Colors.red,
-      MigrationStatus.planned => Colors.orange,
-      MigrationStatus.notStarted => Colors.grey,
-    };
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return ListTile(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: Theme.of(context).dividerColor),
-      ),
-      title: Text(item.title),
-      subtitle: Text('${item.area.label} - ${item.notes}'),
-      trailing: Chip(
-        label: Text(item.status.name),
-        side: BorderSide.none,
-        backgroundColor: color.withValues(alpha: 0.12),
-        labelStyle: TextStyle(color: color),
+    return AppSurface(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.title, style: textTheme.titleSmall),
+                const SizedBox(height: 4),
+                Text(
+                  '${item.area.label} - ${item.notes}',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          AppBadge(label: item.status.name),
+        ],
       ),
     );
   }

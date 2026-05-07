@@ -1,7 +1,8 @@
 # XJTU Toolbox Flutter Migration Technical Constraints
 
 This document is written for coding agents that will work on the Flutter migration.
-Read it before adding features or changing architecture.
+Read it before adding features or changing architecture, together with
+`docs/agent_cross_platform_constraints.md`.
 
 ## Project Locations
 
@@ -183,4 +184,3 @@ Do not:
 - Add many third-party packages without documenting why.
 - Delete generated Android/iOS files unless asked.
 - Treat HarmonyOS as solved by the Flutter Android/iOS migration.
-
