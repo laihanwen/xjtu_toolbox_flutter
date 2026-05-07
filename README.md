@@ -51,6 +51,9 @@ When using another coding agent, provide these files as context first:
 
 - `docs/agent_technical_constraints.md`
 - `docs/agent_function_architecture.md`
+- Chinese reference versions:
+  - `docs/agent_technical_constraints.zh-CN.md`
+  - `docs/agent_function_architecture.zh-CN.md`
 
 ## Migration Rule
 
