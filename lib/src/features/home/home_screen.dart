@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/app_environment.dart';
@@ -21,19 +22,11 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(height: 16),
         const _TodaySummary(),
         const SizedBox(height: 16),
-        AppSectionHeader(
-          title: '常用入口',
-          action: '编辑',
-          onActionPressed: () {},
-        ),
+        AppSectionHeader(title: '常用入口', action: '编辑', onActionPressed: () {}),
         const SizedBox(height: 10),
         const _QuickActionGrid(),
         const SizedBox(height: 16),
-        AppSectionHeader(
-          title: '待处理',
-          action: '全部',
-          onActionPressed: () {},
-        ),
+        AppSectionHeader(title: '待处理', action: '全部', onActionPressed: () {}),
         const SizedBox(height: 10),
         const _NoticeList(),
       ],
@@ -157,9 +150,7 @@ class _InfoPanel extends StatelessWidget {
             value,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 4),
           Text(
@@ -185,7 +176,7 @@ class _QuickActionGrid extends StatelessWidget {
       _QuickAction('课表', '周视图', LucideIcons.calendarDays),
       _QuickAction('空教室', '公共查询', LucideIcons.doorOpen),
       _QuickAction('公告', '多来源聚合', LucideIcons.bell),
-      _QuickAction('校历', '学期事件', LucideIcons.notebookTabs),
+      _QuickAction('校历', '学期事件', LucideIcons.notebookTabs, route: '/calendar'),
       _QuickAction('图书馆', '座位状态', LucideIcons.libraryBig),
       _QuickAction('成绩', '解析优先', LucideIcons.graduationCap),
     ];
@@ -224,7 +215,7 @@ class _QuickActionTile extends StatelessWidget {
 
     return AppSurface(
       padding: const EdgeInsets.all(12),
-      onTap: () {},
+      onTap: action.route == null ? null : () => context.push(action.route!),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -279,11 +270,12 @@ class _NoticeList extends StatelessWidget {
 }
 
 class _QuickAction {
-  const _QuickAction(this.title, this.subtitle, this.icon);
+  const _QuickAction(this.title, this.subtitle, this.icon, {this.route});
 
   final String title;
   final String subtitle;
   final IconData icon;
+  final String? route;
 }
 
 class _Notice {

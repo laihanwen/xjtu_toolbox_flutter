@@ -15,3 +15,6 @@ inside feature screens.
 Use `lib/src/ui` for app-level UI abstractions and `lib/src/platform_bridge`
 for native/platform-specific capabilities.
 
+Local build rule: use Gradle only for compile/check validation. Do not build
+or deliver local debug APKs from this workspace. Debug APK generation and
+distribution should happen through the GitHub remote workflow.

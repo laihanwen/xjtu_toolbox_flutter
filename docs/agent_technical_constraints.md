@@ -34,6 +34,13 @@ Read it before adding features or changing architecture, together with
   - `D:\learn\code\env\flutter\bin\cache\flutter.bat.lock`
 - If Flutter commands hang, inspect and stop only stale Flutter/Dart tool processes before retrying. Do not delete project source files to "fix" toolchain issues.
 
+Local build constraints:
+
+- Use Gradle locally only for compile/check validation.
+- Do not build, deliver, or depend on local debug APK artifacts.
+- Debug APK generation and distribution should happen through the GitHub remote workflow.
+- When Android validation is needed, prefer Gradle assemble/check-style tasks to catch compile errors, but do not treat local APK output as the deliverable.
+
 ## Migration Strategy
 
 Use incremental migration. Do not try to port the whole Android app at once.

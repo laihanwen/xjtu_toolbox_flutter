@@ -4,6 +4,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/app_environment.dart';
+import 'features/calendar/school_calendar_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/migration/migration_dashboard.dart';
 import 'features/profile/profile_screen.dart';
@@ -31,6 +32,14 @@ class XjtuToolboxApp extends StatelessWidget {
                   builder: (context, state) {
                     return HomeScreen(environment: environment);
                   },
+                  routes: [
+                    GoRoute(
+                      path: 'calendar',
+                      builder: (context, state) {
+                        return const SchoolCalendarScreen();
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

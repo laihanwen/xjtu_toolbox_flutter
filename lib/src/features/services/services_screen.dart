@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../ui/app_badge.dart';
@@ -24,6 +25,7 @@ class ServicesScreen extends StatelessWidget {
               subtitle: '学期、节假日、教学周',
               badge: 'Public API',
               icon: LucideIcons.notebookTabs,
+              route: '/calendar',
             ),
             _ServiceEntry(
               title: '空教室',
@@ -178,7 +180,7 @@ class _ServiceTile extends StatelessWidget {
 
     return AppSurface(
       padding: const EdgeInsets.all(12),
-      onTap: () {},
+      onTap: service.route == null ? null : () => context.push(service.route!),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -212,10 +214,12 @@ class _ServiceEntry {
     required this.subtitle,
     required this.badge,
     required this.icon,
+    this.route,
   });
 
   final String title;
   final String subtitle;
   final String badge;
   final IconData icon;
+  final String? route;
 }

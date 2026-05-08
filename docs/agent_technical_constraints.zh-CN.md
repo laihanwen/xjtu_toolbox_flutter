@@ -34,6 +34,13 @@
 
 如果 Flutter 命令卡住，应该先检查是否有残留的 Flutter/Dart 工具进程，再谨慎重试。不要为了修工具链问题删除项目源码。
 
+本地构建约束：
+
+- 本地只使用 Gradle 做编译检查或错误检查。
+- 不要在本地构建、交付或依赖 debug APK 产物。
+- debug 版本统一通过 GitHub 远程 workflow 构建和分发。
+- 需要验证 Android 代码时，优先运行 Gradle 的 assemble/check 类任务确认编译错误，但不要把 APK 作为交付结果。
+
 ## 总体迁移策略
 
 采用增量迁移，不要试图一次性把整个 Android 项目重写成 Flutter。
