@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/app_environment.dart';
 import 'features/calendar/school_calendar_screen.dart';
+import 'features/empty_room/empty_room_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/migration/migration_dashboard.dart';
 import 'features/profile/profile_screen.dart';
@@ -37,6 +38,12 @@ class XjtuToolboxApp extends StatelessWidget {
                       path: 'calendar',
                       builder: (context, state) {
                         return const SchoolCalendarScreen();
+                      },
+                    ),
+                    GoRoute(
+                      path: 'empty-room',
+                      builder: (context, state) {
+                        return const EmptyRoomScreen();
                       },
                     ),
                   ],

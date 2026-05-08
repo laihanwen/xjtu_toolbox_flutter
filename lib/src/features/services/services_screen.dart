@@ -32,6 +32,7 @@ class ServicesScreen extends StatelessWidget {
               subtitle: '校区、楼宇、节次筛选',
               badge: 'Low risk',
               icon: LucideIcons.doorOpen,
+              route: '/empty-room',
             ),
             _ServiceEntry(
               title: '通知公告',

@@ -174,7 +174,7 @@ class _QuickActionGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     const actions = [
       _QuickAction('课表', '周视图', LucideIcons.calendarDays),
-      _QuickAction('空教室', '公共查询', LucideIcons.doorOpen),
+      _QuickAction('空教室', '公共查询', LucideIcons.doorOpen, route: '/empty-room'),
       _QuickAction('公告', '多来源聚合', LucideIcons.bell),
       _QuickAction('校历', '学期事件', LucideIcons.notebookTabs, route: '/calendar'),
       _QuickAction('图书馆', '座位状态', LucideIcons.libraryBig),
